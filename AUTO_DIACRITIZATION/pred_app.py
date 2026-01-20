@@ -102,6 +102,13 @@ if __name__ == '__main__':
     st.set_page_config(page_title="Yorùbá Text Diacritization", layout="wide")
     st.title("Yorùbá Text Diacritization")
     text = st.text_area("Enter random text here")
+    col1, col2 = st.columns(2)
     if st.button("Diacritize"):
-        diacritized_text = predict_sentence(text, model, device)
-        st.write(diacritized_text)
+        if not text or text == '':
+            st.snow()
+            st.warning('PLEASE INPUT ANY TEXT IN THE TEXT AREA ABOVE')
+        
+        else:
+            diacritized_text = predict_sentence(text, model, device)
+            col1.subheader('Diacritized Text:')
+            col1.code(diacritized_text)
