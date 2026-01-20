@@ -94,11 +94,16 @@ def predict_sentence(sentence, model, device):
     
     return " ".join(predicted_words)
 
+@st.cache_resource
+def load_model():
+        model = BiLSTMDiacritizer(INPUT_DIM, EMBEDDING_DIM, HIDDEN_DIM, OUTPUT_DIM, N_LAYERS, DROPOUT, PAD_IDX, embedding_weights=embedding_weights)
+        device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+        model.load_state_dict(torch.load(Path(path/'PHASE_TWO'/'best-model.pt'), map_location=device))
+        model = model.to(device)
+        return model, device
+
 if __name__ == '__main__':
-    model = BiLSTMDiacritizer(INPUT_DIM, EMBEDDING_DIM, HIDDEN_DIM, OUTPUT_DIM, N_LAYERS, DROPOUT, PAD_IDX, embedding_weights=embedding_weights)
-    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    model.load_state_dict(torch.load(Path(path/'PHASE_TWO'/'best-model.pt'), map_location=device))
-    model = model.to(device)
+    model, device = load_model()
     st.set_page_config(page_title="Yorùbá Text Diacritization", layout="wide")
     st.title("Yorùbá Text Diacritization")
     text = st.text_area("Enter random text here")
