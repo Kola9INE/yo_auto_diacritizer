@@ -23,7 +23,7 @@ This repository contains a machine learning project designed to automatically re
 
 ### Utilities
 
-* **`cln-720.ipynb`**: A utility notebook for data cleaning and exploration (likely used for specific corpus cleaning tasks).
+* **`char-level.ipynb`**: A utility notebook for feature engineering and model development.
 
 ## 🛠 Installation & Requirements
 
