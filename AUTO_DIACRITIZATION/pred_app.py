@@ -121,4 +121,4 @@ if __name__ == '__main__':
             end = time.time() - start
             col1.subheader('Diacritized Text:')
             col1.code(diacritized_text)
-            st.caption(f"Inference time: {elapsed:.2f} seconds")
+            st.caption(f"Inference time: {end:.2f} seconds")
