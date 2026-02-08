@@ -106,7 +106,7 @@ if __name__ == '__main__':
     model, device = load_model()
     st.set_page_config(page_title="Yorùbá Text Diacritization", layout="wide")
     st.title("Yorùbá Text Diacritization")
-    text = st.text_area("Enter random text here")
+    text = st.text_area(label = "Ẹkáàbọ̀", "placeholder = "Tẹ ọrọ rẹ si ibi...")
     col1, col2 = st.columns(2)
     if st.button("Diacritize"):
         if not text or text == '':
