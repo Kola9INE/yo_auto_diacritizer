@@ -3,6 +3,7 @@ import torch
 import torch.nn as nn
 import joblib
 from pathlib import Path
+import time
 
 path = Path(__file__).parent
 class BiLSTMDiacritizer(nn.Module):
@@ -106,7 +107,7 @@ if __name__ == '__main__':
     model, device = load_model()
     st.set_page_config(page_title="Yorùbá Text Diacritization", layout="wide")
     st.title("Yorùbá Text Diacritization")
-    text = st.text_area("Enter random text here")
+    text = st.text_area("Ẹkáàbọ̀", placeholder = "Tẹ ọ̀rọ̀ rẹ síbí…")
     col1, col2 = st.columns(2)
     if st.button("Diacritize"):
         if not text or text == '':
@@ -114,6 +115,10 @@ if __name__ == '__main__':
             st.warning('PLEASE INPUT ANY TEXT IN THE TEXT AREA ABOVE')
         
         else:
-            diacritized_text = predict_sentence(text, model, device)
+            start = time.time()
+            with st.spinner("Diacritizing text... please wait"):
+                diacritized_text = predict_sentence(text, model, device)
+            end = time.time() - start
             col1.subheader('Diacritized Text:')
             col1.code(diacritized_text)
+            st.caption(f"Inference time: {end:.2f} seconds")
